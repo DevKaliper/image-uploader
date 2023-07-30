@@ -52,7 +52,7 @@ export default function RootLayout({
                 href="https://github.com/DevKaliper/image-uploader"
                 title="GitHub repository">
                 <span className="text-default-600">Developed by</span>
-                <p className="text-primary">DevKaliper</p>
+                <p className="text-black">DevKaliper</p>
               </Link>
             </footer>
           </div>
