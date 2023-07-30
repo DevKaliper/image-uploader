@@ -20,7 +20,9 @@ export const Navbar = () => {
   return (
     <NextUINavbar
       maxWidth="xl"
-      position="sticky">
+      position="sticky"
+      className="z-50 shadow-lg"
+      >
       <NavbarContent
         className="basis-1/5 sm:basis-full"
         justify="start">
