@@ -1,16 +1,23 @@
 import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
+import { title } from "./primitives";
+
 
 export const CardToDropVideo = () => {
   return (
-    <Card>
-      <CardHeader>
-        <h4>Image Uploader</h4>
+    <Card isBlurred className="h-[60vh] w-[70vw]  xl:w-[25vw] shadow-lg bg-opacity-60">
+      <CardHeader className="my-6 flex flex-col gap-2 justify-center items-center">
+        <div className="my-2">
+
+        <h4 className={title({ size:"sm"}) }>Image Uploader</h4>
+        </div>
         <p>We accept jpeg & png...</p>
       </CardHeader>
+      
 
       <CardBody>aquí es donde irá la zona de dnd</CardBody>
+      <p>or</p>
       <CardFooter>
         <Button
           disableRipple
