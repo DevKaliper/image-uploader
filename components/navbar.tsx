@@ -1,3 +1,5 @@
+
+"use client"
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -5,17 +7,16 @@ import {
   NavbarBrand,
   NavbarItem,
 } from "@nextui-org/navbar";
+import { useTheme } from "next-themes";
 import { Link } from "@nextui-org/link";
-
 import { siteConfig } from "@/config/site";
 import NextLink from "next/link";
-
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon } from "@/components/icons";
-
-import { Logo } from "@/components/icons";
+import { LogoWhite, LogoBlack } from "@/components/icons";
 
 export const Navbar = () => {
+	const { theme } = useTheme();
   return (
     <NextUINavbar
       maxWidth="xl"
@@ -29,7 +30,10 @@ export const Navbar = () => {
           <NextLink
             className="flex items-center justify-start gap-1"
             href="/">
-            <Logo />
+				{
+					theme === "dark" ? <LogoWhite /> : <LogoBlack />
+				}
+            
             <p className="font-bold text-inherit">DevKaliper</p>
           </NextLink>
         </NavbarBrand>
