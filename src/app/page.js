@@ -1,62 +1,100 @@
-
-"use client"
-import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup, Button, Box } from '@chakra-ui/react'
-
+"use client";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Stack,
+  Heading,
+  Text,
+  Button,
+  Box,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import FileDropZone from "../components/FileDropZone";
+import Loading from "../components/Loading";
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  const handleFile = (e) => {
+    
+    const file = e.target.files[0];
+    //aquí pueso hacer lo que quiera con el archivo
+
+
+    console.log(file);
+    setLoading(true);
+  };
+
+
   return (
-    <Box css={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      width: '100vw',
+    <Box
+      css={{
+        // esto es para centrar el contenido
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
+      }}>
 
-    }}>
+        {
+          loading ? <Loading setLoading={setLoading}/> :  <Card
+        maxW="xl"
+        css={{
+          // ESta es la tarjeta
+          boxShadow:
+            "0 0 20px 5px rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.1)",
+          width: "400px",
+        }}>
+        <CardBody>
+          <Stack
+            spacing="3"
+            css={{
+              textAlign: "center",
+              margin: "10px 0",
+            }}>
+            <Heading size="md">Upload your image</Heading>
 
+            <Text> File should be Jpeg, Png... </Text>
+          </Stack>
+          <Stack
+            mt="6"
+            spacing="3">
+              {/* ESTE ES EL AREA DE DRAG AND DROP */}
+            <FileDropZone />
+          </Stack>
 
-    <Card maxW='sm' css={{
-      boxShadow: '0 0 20px 5px rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.1)',
-    }} >
-  <CardBody>
-    <Stack spacing='3' css={{
-      textAlign: 'center', 
-      margin: "10px 0"
-    }}>
-      <Heading size='md' >Upload your image</Heading>
+          <Text
+            textAlign={"center"}
+            mt={7}>
+            Or
+          </Text>
+        </CardBody>
+        <CardFooter
+          css={{
+            display: "grid",
+            placeItems: "center",
+          }}>
+          <input
+            type="file"
+            id="fileInput"
+            hidden
+            onChange={(e) => handleFile(e)}
+          />
 
-      <Text> File should be Jpeg, Png... </Text>
-</Stack>
-    <Image
-      src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-      alt='Green double couch with wooden legs'
-      borderRadius='lg'
-    />
-    <Stack mt='6' spacing='3'>
-      <Text>
-        ------&gt;AQUÍ IRA EL DRAG AND DROP&lt;------
-      </Text>
-  
-    </Stack>
-
-
-    <Text textAlign={"center"} mt={7}>Or</Text>
-
-  </CardBody>
-  <CardFooter css={{
-    display: 'grid',
-    placeItems: 'center',
-  }}>
-
-      <Button variant='solid' colorScheme='blue'>
-        Choose a file
-      </Button>
-     
-   
-  </CardFooter>
-</Card>
-
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            onClick={() => document.getElementById("fileInput").click()}>
+            Choose a file
+          </Button>
+        </CardFooter>
+      </Card>
+        }
+      
     </Box>
-
   )
+
+ 
 }
