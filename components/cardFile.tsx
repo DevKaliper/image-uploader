@@ -12,18 +12,18 @@ export const CardToDropVideo = () => {
 
         <h4 className={title({ size:"sm"}) }>Image Uploader</h4>
         </div>
-        <p>We accept jpeg & png...</p>
+        <p className="italic">We accept jpeg & png...</p>
       </CardHeader>
       
 
       <CardBody>aquí es donde irá la zona de dnd</CardBody>
-      <p>or</p>
-      <CardFooter>
+      <p className="w-full text-center italic">or</p>
+      <CardFooter className="grid place-items-center my-4 ">
         <Button
           disableRipple
           className="relative overflow-visible rounded-full bg-background/30 px-12 shadow-xl after:absolute after:inset-0 after:z-[-1] after:rounded-full after:bg-background/40 after:!duration-500 after:content-[''] after:transition hover:-translate-y-1 hover:after:scale-150 hover:after:opacity-0"
           size="lg">
-          Upload
+          Choose a file
         </Button>
       </CardFooter>
     </Card>
