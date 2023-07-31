@@ -7,31 +7,31 @@ import { title } from "./primitives";
 
 import FileDropzone from "./dropZone";
 
-
-
 export const CardToDropVideo = (props:any) => {
 
   const handleFileChoosed = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
-    console.log(file)
     uploadImage(file);
     
   }
 
  async function uploadImage (file: any) {
-  console.log(file)
     if (!file) {
+      //si no colocó una imagen
       alert('Por favor, seleccione una imagen.');
       return;
     }
-    props.setLoading(true)
-
+    
+    //Se instancia el formData
     const formData = new FormData();
     if (file) {
+      //si se colocó la imagen se comienza la animación de carga
+      props.setLoading(true)
       const blob = new Blob([file], { type: file.type });
       formData.append('image', blob, file.name); // Agregamos el nombre del archivo
     }
 
+    //Se realiza la petición al servidor
     try {
       const response = await fetch("http://localhost:5000/upload", {
         method: 'POST',
@@ -42,12 +42,14 @@ export const CardToDropVideo = (props:any) => {
         throw new Error('Error al cargar la imagen.');
       }
 
+      //Data será la url que manda el servidor
       const data = await response.text();
-      console.log(data);
 
       setTimeout(() => {
-        props.setLoading(false)
+        //coloco la url
         props.setUrl(data)
+        //quito el cargando
+        props.setLoading(false)
       }, 3000);
     } catch (error) {
       console.error('Error al cargar la imagen:', error);
@@ -70,7 +72,7 @@ export const CardToDropVideo = (props:any) => {
       <CardBody>
 
 
-        <FileDropzone setLoading={props.setLoading}/>{/* ZONA DEL DRAG AN DROP  */}
+        <FileDropzone setLoading={props.setLoading} setUrl={props.setUrl}/>{/* ZONA DEL DRAG AN DROP  */}
         
       </CardBody>
       <p className="w-full text-center italic">or</p>

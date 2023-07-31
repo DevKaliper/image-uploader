@@ -5,9 +5,7 @@ import {Card, CardBody} from "@nextui-org/card";
 import { Progress } from "@nextui-org/progress";
 
 export default function App(props: any) {
-    if(props.loading){
-        setTimeout(() =>props.setLoading(false), 3000)
-    }
+   
   return (
     <Card className="w-[40vw]">
       <CardBody>
