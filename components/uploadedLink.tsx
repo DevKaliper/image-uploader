@@ -7,7 +7,7 @@ import { Link } from "@nextui-org/link";
 
 const App = (props: any) => {
   return (
-    <div className="grid place-items-center">
+    <div className="flex flex-col  justify-center items-center">
       <Card className="relative -top-12 col-span-12 h-[550px] w-[500px]  sm:col-span-7 2xl:-top-16">
         <CardHeader className="absolute top-0 z-10 h-fit w-full flex-col items-start backdrop-blur-2xl">
           <p className="text-tiny font-bold uppercase text-white/60">
@@ -54,6 +54,10 @@ const App = (props: any) => {
           </div>
         </CardFooter>
       </Card>
+      <Button>
+
+      <Link isBlock color="foreground" href="/">Home</Link>
+      </Button>
     </div>
   );
 };
