@@ -5,7 +5,7 @@ import { useState } from "react";
 import Uploading from "@/components/loading";
 export default function Home() {
 	const [file, setFile] = useState<File>();
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
 	return (
 		<section className="grid place-items-center w-full h-full">
 			{
