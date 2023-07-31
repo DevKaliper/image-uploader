@@ -1,9 +1,10 @@
 
 "use client"
-import React, { ChangeEvent, use, useEffect, useState} from "react";
+import React from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
 import { title } from "./primitives";
+import { SnackbarProvider, enqueueSnackbar } from 'notistack'
 
 import FileDropzone from "./dropZone";
 
@@ -18,7 +19,7 @@ export const CardToDropVideo = (props:any) => {
  async function uploadImage (file: any) {
     if (!file) {
       //si no colocó una imagen
-      alert('Por favor, seleccione una imagen.');
+      enqueueSnackbar('Please, select an image', { variant: 'error' });
       return;
     }
     
@@ -33,7 +34,7 @@ export const CardToDropVideo = (props:any) => {
 
     //Se realiza la petición al servidor
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("https://imp-uploader-dev-kaliper.onrender.com/upload", {
         method: 'POST',
         body: formData,
       });
@@ -55,7 +56,7 @@ export const CardToDropVideo = (props:any) => {
       console.error('Error al cargar la imagen:', error);
       props.setLoading(false)
   
-      alert('Error al cargar la imagen.');
+      enqueueSnackbar("Error trying to upload file", { variant: 'error' });
     }
   };
   return (

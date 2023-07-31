@@ -1,13 +1,14 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import service from '../service/service';
+import { SnackbarProvider, enqueueSnackbar } from 'notistack'
+
 
 const FileDropzone = (props: any) => {
   const onDrop = async (acceptedFiles: any) => {
     const file = acceptedFiles[0]
     if (!file) {
       //si no colocó una imagen
-      alert('Por favor, seleccione una imagen.');
+      enqueueSnackbar("Please, select an image.", { variant: 'error' });
       return;
     }
     
@@ -22,7 +23,7 @@ const FileDropzone = (props: any) => {
 
     //Se realiza la petición al servidor
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("https://imp-uploader-dev-kaliper.onrender.com/upload", {
         method: 'POST',
         body: formData,
       });
@@ -44,7 +45,7 @@ const FileDropzone = (props: any) => {
       console.error('Error al cargar la imagen:', error);
       props.setLoading(false)
   
-      alert('Error al cargar la imagen.');
+      enqueueSnackbar("Error trying to upload file", { variant: 'error' });
     }
   };
 
@@ -52,6 +53,7 @@ const FileDropzone = (props: any) => {
 
   return (
     <div {...getRootProps()}  className='border-2 border-dashed border-gray-500 dark:border-white h-full grid place-items-center rounded-xl mb-4 p-5 text-center'>
+      <SnackbarProvider />
       <input {...getInputProps()} />
       {isDragActive ? (
         <p>Drop the file here...</p>
