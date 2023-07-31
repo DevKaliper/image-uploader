@@ -1,11 +1,10 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
+import service from '../service/service';
 
 const FileDropzone = (props: any) => {
-  const onDrop = (acceptedFiles: any) => {
-    props.setLoading(true); // para que se muestre el loading
-    // Aquí puedo manejar los archivos que se arrastraron y soltaron con 'acceptedFiles'
-    console.log(acceptedFiles);
+  const onDrop = async (acceptedFiles: any) => {
+   console.log(acceptedFiles)
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop }); // Aquí se configura el dropzone

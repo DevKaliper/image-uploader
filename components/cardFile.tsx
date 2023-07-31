@@ -1,22 +1,61 @@
 
 "use client"
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, use, useEffect, useState} from "react";
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Button } from "@nextui-org/button";
 import { title } from "./primitives";
+
 import FileDropzone from "./dropZone";
 
 
-export const CardToDropVideo = (props:any) => {
-  const handleFileChoosed = (event: ChangeEvent ) => {
-    const a = event.target as HTMLInputElement; // para que no se queje el typescript
-    const fileToUpload = a.files?.item(0); 
-    // aqui puedo manejar el archivo que se seleccionó
-    console.log(fileToUpload);
-    props.setLoading(true); // para que se muestre el loading
 
+export const CardToDropVideo = (props:any) => {
+
+  const handleFileChoosed = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    console.log(file)
+    uploadImage(file);
     
   }
+
+ async function uploadImage (file: any) {
+  console.log(file)
+    if (!file) {
+      alert('Por favor, seleccione una imagen.');
+      return;
+    }
+    props.setLoading(true)
+
+    const formData = new FormData();
+    if (file) {
+      const blob = new Blob([file], { type: file.type });
+      formData.append('image', blob, file.name); // Agregamos el nombre del archivo
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/upload", {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al cargar la imagen.');
+      }
+
+      const data = await response.text();
+      console.log(data);
+
+      setTimeout(() => {
+        props.setLoading(false)
+        props.setUrl(data)
+      }, 3000);
+    } catch (error) {
+      console.error('Error al cargar la imagen:', error);
+      props.setLoading(false)
+  
+      alert('Error al cargar la imagen.');
+    }
+  };
   return (
     <Card isBlurred className="h-[60vh] w-[70vw]  xl:w-[25vw] shadow-lg bg-opacity-60">
       <CardHeader className="my-6 flex flex-col gap-2 justify-center items-center">
