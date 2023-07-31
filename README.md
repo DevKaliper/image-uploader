@@ -42,6 +42,7 @@ This image uploader is built using the following technologies:
 - React 
 - Next JS 13
 - Node JS
+- TypeScript
   
 
 ## Contributions
