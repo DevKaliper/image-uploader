@@ -1,37 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📸 Image Uploader
 
-## Getting Started
+Una aplicación web moderna que permite subir imágenes de forma segura y generar URLs temporales con tiempo de expiración personalizable.
 
-First, run the development server:
+## ✨ Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🖼️ **Subida de imágenes** - Soporte para JPEG, PNG, GIF, WebP, BMP y SVG
+- ⏰ **Expiración personalizable** - Define cuánto tiempo será accesible la imagen
+- 🔒 **URLs seguras** - Genera presigned URLs temporales de AWS S3
+- 📏 **Validación de tamaño** - Máximo 5MB por imagen
+- 🚀 **Respuesta rápida** - Procesamiento eficiente con AWS Lambda
+- 🌐 **CORS habilitado** - Compatible con cualquier frontend
+
+## 🏗️ Arquitectura
+
+```
+Frontend (Web App) 
+     ↓
+API Gateway
+     ↓
+AWS Lambda (Validation + Upload)
+     ↓
+AWS S3 (Private Bucket)
+     ↓
+Presigned URL (Temporary Access)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tecnologías utilizadas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Backend
+- **AWS Lambda** - Procesamiento serverless
+- **AWS S3** - Almacenamiento de imágenes
+- **AWS API Gateway** - API REST
+- **Node.js** - Runtime de JavaScript
+- **AWS SDK v3** - Integración con servicios AWS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
+- **Next.js** - Framework React
+- **TypeScript** - Tipado estático
+- **Tailwind CSS** - Estilos utilitarios
 
-## Learn More
+## ⚠️ Validaciones
 
-To learn more about Next.js, take a look at the following resources:
+### Tipos de archivo permitidos:
+- ✅ `image/jpeg`, `image/jpg`
+- ✅ `image/png`
+- ✅ `image/gif`
+- ✅ `image/webp`
+- ✅ `image/bmp`
+- ✅ `image/svg+xml`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Restricciones:
+- 📏 **Tamaño máximo**: 5MB
+- 🕐 **Expiración mínima**: 5 minutos
+- 🕐 **Expiración máxima**: 604800 segundos (7 días)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔒 Seguridad
 
-## Deploy on Vercel
+- 🔐 **Bucket privado** - Solo accesible via presigned URLs
+- ⏰ **URLs temporales** - Expiran automáticamente
+- 🛡️ **Validación estricta** - Solo imágenes válidas
+- 🚫 **Sin acceso público** - URLs no predecibles
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# image-uploader-v2
+### Con SAM (Recomendado):
+```bash
+sam build
+sam deploy --guided
+```
+
+### Manual:
+1. Subir función Lambda
+2. Configurar API Gateway
+3. Deploy frontend a Vercel/Netlify
+
+## 🎨 Uso del frontend
+
+1. **Seleccionar imagen** - Click en el área de drag & drop
+2. **Configurar expiración** - Elegir tiempo deseado
+3. **Subir** - Click en "Upload Image"
+4. **Obtener URL** - Copiar la URL generada
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crear feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit cambios (`git commit -m 'Add amazing feature'`)
+4. Push al branch (`git push origin feature/amazing-feature`)
+5. Abrir Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.
+
+## 🗺️ Roadmap
+
+- [ ] Soporte para múltiples imágenes
+- [ ] Preview de imágenes antes de subir
+- [ ] Redimensionado automático
+- [ ] Galería de imágenes subidas
+- [ ] API de eliminación manual
+- [ ] Webhooks para notificaciones
+
+
+⭐ Si te gustó este proyecto, ¡dale una estrella!
