@@ -1,17 +1,17 @@
 # 📸 Image Uploader
 
-Una aplicación web moderna que permite subir imágenes de forma segura y generar URLs temporales con tiempo de expiración personalizable.
+A modern web application that allows secure image uploads and generates temporary URLs with customizable expiration times.
 
-## ✨ Características
+## ✨ Features
 
-- 🖼️ **Subida de imágenes** - Soporte para JPEG, PNG, GIF, WebP, BMP y SVG
-- ⏰ **Expiración personalizable** - Define cuánto tiempo será accesible la imagen
-- 🔒 **URLs seguras** - Genera presigned URLs temporales de AWS S3
-- 📏 **Validación de tamaño** - Máximo 5MB por imagen
-- 🚀 **Respuesta rápida** - Procesamiento eficiente con AWS Lambda
-- 🌐 **CORS habilitado** - Compatible con cualquier frontend
+- 🖼️ **Image upload** - Support for JPEG, PNG, GIF, WebP, BMP and SVG
+- ⏰ **Customizable expiration** - Define how long the image will be accessible
+- 🔒 **Secure URLs** - Generate temporary AWS S3 presigned URLs
+- 📏 **Size validation** - Maximum 5MB per image
+- 🚀 **Fast response** - Efficient processing with AWS Lambda
+- 🌐 **CORS enabled** - Compatible with any frontend
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 Frontend (Web App) 
@@ -25,23 +25,23 @@ AWS S3 (Private Bucket)
 Presigned URL (Temporary Access)
 ```
 
-## 🛠️ Tecnologías utilizadas
+## 🛠️ Technologies Used
 
 ### Backend
-- **AWS Lambda** - Procesamiento serverless
-- **AWS S3** - Almacenamiento de imágenes
-- **AWS API Gateway** - API REST
-- **Node.js** - Runtime de JavaScript
-- **AWS SDK v3** - Integración con servicios AWS
+- **AWS Lambda** - Serverless processing
+- **AWS S3** - Image storage
+- **AWS API Gateway** - REST API
+- **Node.js** - JavaScript runtime
+- **AWS SDK v3** - AWS services integration
 
 ### Frontend
-- **Next.js** - Framework React
-- **TypeScript** - Tipado estático
-- **Tailwind CSS** - Estilos utilitarios
+- **Next.js** - React framework
+- **TypeScript** - Static typing
+- **Tailwind CSS** - Utility-first CSS
 
-## ⚠️ Validaciones
+## ⚠️ Validations
 
-### Tipos de archivo permitidos:
+### Allowed file types:
 - ✅ `image/jpeg`, `image/jpg`
 - ✅ `image/png`
 - ✅ `image/gif`
@@ -49,58 +49,47 @@ Presigned URL (Temporary Access)
 - ✅ `image/bmp`
 - ✅ `image/svg+xml`
 
-### Restricciones:
-- 📏 **Tamaño máximo**: 5MB
-- 🕐 **Expiración mínima**: 5 minutos
-- 🕐 **Expiración máxima**: 604800 segundos (7 días)
+### Restrictions:
+- 📏 **Maximum size**: 5MB
+- 🕐 **Minimum expiration**: 5 minutes
+- 🕐 **Maximum expiration**: 604800 seconds (7 days)
 
-## 🔒 Seguridad
+## 🔒 Security
 
-- 🔐 **Bucket privado** - Solo accesible via presigned URLs
-- ⏰ **URLs temporales** - Expiran automáticamente
-- 🛡️ **Validación estricta** - Solo imágenes válidas
-- 🚫 **Sin acceso público** - URLs no predecibles
+- 🔐 **Private bucket** - Only accessible via presigned URLs
+- ⏰ **Temporary URLs** - Automatically expire
+- 🛡️ **Strict validation** - Only valid images allowed
+- 🚫 **No public access** - Non-predictable URLs
 
-## 🚀 Deployment
 
-### Con SAM (Recomendado):
-```bash
-sam build
-sam deploy --guided
-```
+## 🎨 Frontend Usage
 
-### Manual:
-1. Subir función Lambda
-2. Configurar API Gateway
-3. Deploy frontend a Vercel/Netlify
+1. **Select image** - Click on the drag & drop area
+2. **Configure expiration** - Choose desired time
+3. **Upload** - Click on "Upload Image"
+4. **Get URL** - Copy the generated URL
 
-## 🎨 Uso del frontend
+## 🤝 Contributing
 
-1. **Seleccionar imagen** - Click en el área de drag & drop
-2. **Configurar expiración** - Elegir tiempo deseado
-3. **Subir** - Click en "Upload Image"
-4. **Obtener URL** - Copiar la URL generada
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
 
-## 🤝 Contribuir
+## 📄 License
 
-1. Fork el proyecto
-2. Crear feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit cambios (`git commit -m 'Add amazing feature'`)
-4. Push al branch (`git push origin feature/amazing-feature`)
-5. Abrir Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.
+This project is licensed under the MIT License. See `LICENSE` for more details.
 
 ## 🗺️ Roadmap
 
-- [ ] Soporte para múltiples imágenes
-- [ ] Preview de imágenes antes de subir
-- [ ] Redimensionado automático
-- [ ] Galería de imágenes subidas
-- [ ] API de eliminación manual
-- [ ] Webhooks para notificaciones
+- [ ] Multiple images support
+- [ ] Image preview before upload
+- [ ] Automatic resizing
+- [ ] Uploaded images gallery
+- [ ] Manual deletion API
+- [ ] Webhooks for notifications
 
+---
 
-⭐ Si te gustó este proyecto, ¡dale una estrella!
+⭐ If you liked this project, give it a star!
