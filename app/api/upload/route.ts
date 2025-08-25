@@ -65,6 +65,6 @@ export async function POST(request: NextRequest) {
       expiresAt: expiresAt.toISOString(),
     });
   } catch (error) {
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Upload failed" }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
+import { useDropzone, FileRejection } from "react-dropzone"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -11,7 +11,6 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 
 interface UploadedFile {
-  body: any
   url: string
   filename: string
   size: number
@@ -92,7 +91,7 @@ export default function ImageUploader() {
   }
 
   const onDrop = useCallback(
-    (acceptedFiles: File[], rejectedFiles: any[]) => {
+    (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       setError(null)
 
       if (rejectedFiles.length > 0) {
