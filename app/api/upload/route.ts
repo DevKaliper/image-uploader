@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   try {
     const imageBuffer = await file.arrayBuffer();
     const toUpload = Buffer.from(imageBuffer);
-    const base64Image = toUpload.toString('base64');
+    const base64Image = toUpload.toString("base64");
 
     const result = await fetch(process.env.NEXT_INTERNAL_API || "", {
       method: "POST",
@@ -42,12 +42,18 @@ export async function POST(request: NextRequest) {
     });
 
     const responseData = await result.json();
-    const body = JSON.parse(responseData?.body || "{}");
 
-    if (body.message == "Limit Exceeded") {
-      return NextResponse.json({ error: "API limit exceeded try again tomorrow" }, { status: 429 });
-    } else if (body.errorMessage) {
-      return NextResponse.json({ error: body.errorMessage }, { status: 400 });
+    if (responseData.message == "Limit Exceeded") {
+      return NextResponse.json(
+        { error: "API limit exceeded try again tomorrow" },
+        { status: 429 }
+      );
+    }
+
+    const body = JSON.parse(responseData?.body);
+
+    if (body.errorMessage) {
+      return NextResponse.json({ error: body.errorMessage }, { status: 500 });
     }
 
     return NextResponse.json({

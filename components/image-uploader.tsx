@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 
 interface UploadedFile {
+  body: any
   url: string
   filename: string
   size: number
@@ -25,6 +26,7 @@ export default function ImageUploader() {
   const [duration, setDuration] = useState("3600") // 1 hour default
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState<string | null>(null)
+    const [showSuccessAnimation, setShowSuccessAnimation] = useState(false)
 
   const durationOptions = [
     { value: "300", label: "5 minutes" },
@@ -78,6 +80,8 @@ export default function ImageUploader() {
 
       const result = await response.json()
       setUploadedFile(result)
+        setShowSuccessAnimation(true)
+      setTimeout(() => setShowSuccessAnimation(false), 3000) // Hide after 3 seconds
     } catch (error) {
       console.error("Upload error:", error)
       setError(error instanceof Error ? error.message : "Upload failed")
@@ -232,7 +236,11 @@ export default function ImageUploader() {
       </Card>
 
       {(uploadedFile && !error) && (
-        <Card className="p-6 border-border/50 bg-gradient-to-br from-background to-muted/10">
+        <Card    className={cn(
+        "p-6 border-border/50 bg-gradient-to-br from-background to-muted/10 rounded-xl transition-all duration-1000 ease-in-out",
+        showSuccessAnimation &&
+          "bg-green-100 dark:bg-green-950/20 shadow-lg shadow-green-500/10"
+      )}>
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
               <Image src={uploadedFile.url} width={64} height={64} alt={uploadedFile.filename} className="w-16 h-16 object-cover rounded" />
