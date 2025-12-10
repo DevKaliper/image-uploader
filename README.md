@@ -1,37 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📸 Image Uploader
 
-## Getting Started
+A modern web application that allows secure image uploads and generates temporary URLs with customizable expiration times.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 🖼️ **Image upload** - Support for JPEG, PNG, GIF, WebP, BMP and SVG
+- ⏰ **Customizable expiration** - Define how long the image will be accessible
+- 🔒 **Secure URLs** - Generate temporary AWS S3 presigned URLs
+- 📏 **Size validation** - Maximum 5MB per image
+- 🚀 **Fast response** - Efficient processing with AWS Lambda
+- 🌐 **CORS enabled** - Compatible with any frontend
+
+## 🏗️ Architecture
+
+```
+Frontend (Web App) 
+     ↓
+API Gateway
+     ↓
+AWS Lambda (Validation + Upload)
+     ↓
+AWS S3 (Private Bucket)
+     ↓
+Presigned URL (Temporary Access)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Backend
+- **AWS Lambda** - Serverless processing
+- **AWS S3** - Image storage
+- **AWS API Gateway** - REST API
+- **Node.js** - JavaScript runtime
+- **AWS SDK v3** - AWS services integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Frontend
+- **Next.js** - React framework
+- **TypeScript** - Static typing
+- **Tailwind CSS** - Utility-first CSS
 
-## Learn More
+## ⚠️ Validations
 
-To learn more about Next.js, take a look at the following resources:
+### Allowed file types:
+- ✅ `image/jpeg`, `image/jpg`
+- ✅ `image/png`
+- ✅ `image/gif`
+- ✅ `image/webp`
+- ✅ `image/bmp`
+- ✅ `image/svg+xml`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Restrictions:
+- 📏 **Maximum size**: 5MB
+- 🕐 **Minimum expiration**: 5 minutes
+- 🕐 **Maximum expiration**: 604800 seconds (7 days)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔒 Security
 
-## Deploy on Vercel
+- 🔐 **Private bucket** - Only accessible via presigned URLs
+- ⏰ **Temporary URLs** - Automatically expire
+- 🛡️ **Strict validation** - Only valid images allowed
+- 🚫 **No public access** - Non-predictable URLs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# image-uploader-v2
+## 🎨 Frontend Usage
+
+1. **Select image** - Click on the drag & drop area
+2. **Configure expiration** - Choose desired time
+3. **Upload** - Click on "Upload Image"
+4. **Get URL** - Copy the generated URL
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License. See `LICENSE` for more details.
+
+## 🗺️ Roadmap
+
+- [ ] Multiple images support
+- [ ] Image preview before upload
+- [ ] Automatic resizing
+- [ ] Uploaded images gallery
+- [ ] Manual deletion API
+- [ ] Webhooks for notifications
+
+---
+
+⭐ If you liked this project, give it a star!

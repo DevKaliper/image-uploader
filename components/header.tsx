@@ -17,7 +17,7 @@ export default function Header() {
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" asChild>
             <a
-              href="https://github.com"
+              href="https://github.com/DevKaliper/image-uploader"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2"

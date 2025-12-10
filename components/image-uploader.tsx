@@ -1,13 +1,14 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
+import { useDropzone, FileRejection } from "react-dropzone"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
-import { Upload, ImageIcon, Clock, Copy, Check, AlertCircle } from "lucide-react"
+import { Upload, Clock, Copy, Check, AlertCircle, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface UploadedFile {
   url: string
@@ -24,6 +25,7 @@ export default function ImageUploader() {
   const [duration, setDuration] = useState("3600") // 1 hour default
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState<string | null>(null)
+    const [showSuccessAnimation, setShowSuccessAnimation] = useState(false)
 
   const durationOptions = [
     { value: "300", label: "5 minutes" },
@@ -71,14 +73,17 @@ export default function ImageUploader() {
       setUploadProgress(100)
 
       if (!response.ok) {
-        throw new Error("Upload failed")
+        const responseData = await response.json()
+        throw new Error(responseData.error || "Upload failed");
       }
 
       const result = await response.json()
       setUploadedFile(result)
+        setShowSuccessAnimation(true)
+      setTimeout(() => setShowSuccessAnimation(false), 3000) // Hide after 3 seconds
     } catch (error) {
       console.error("Upload error:", error)
-      setError("Upload failed. Please try again.")
+      setError(error instanceof Error ? error.message : "Upload failed")
     } finally {
       setUploading(false)
       setTimeout(() => setUploadProgress(0), 1000)
@@ -86,7 +91,7 @@ export default function ImageUploader() {
   }
 
   const onDrop = useCallback(
-    (acceptedFiles: File[], rejectedFiles: any[]) => {
+    (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       setError(null)
 
       if (rejectedFiles.length > 0) {
@@ -136,7 +141,6 @@ export default function ImageUploader() {
 
   return (
     <div className="space-y-6">
-      {/* Duration Selection */}
       <Card className="p-6 border-border/50">
         <div className="flex items-center gap-3 mb-4">
           <Clock className="h-5 w-5 text-muted-foreground" />
@@ -230,12 +234,15 @@ export default function ImageUploader() {
         )}
       </Card>
 
-      {/* Upload Result */}
-      {uploadedFile && (
-        <Card className="p-6 border-border/50 bg-gradient-to-br from-background to-muted/10">
+      {(uploadedFile && !error) && (
+        <Card    className={cn(
+        "p-6 border-border/50 bg-gradient-to-br from-background to-muted/10 rounded-xl transition-all duration-1000 ease-in-out",
+        showSuccessAnimation &&
+          "bg-green-100 dark:bg-green-950/20 shadow-lg shadow-green-500/10"
+      )}>
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-              <ImageIcon className="h-6 w-6 text-primary" />
+              <Image src={uploadedFile.url} width={64} height={64} alt={uploadedFile.filename} className="w-16 h-16 object-cover rounded" />
             </div>
 
             <div className="flex-1 space-y-3">
@@ -252,6 +259,15 @@ export default function ImageUploader() {
                   <div className="flex-1 p-3 bg-muted/50 border border-border/50 rounded-lg">
                     <code className="text-sm text-foreground break-all">{uploadedFile.url}</code>
                   </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(uploadedFile.url, "_blank")}
+                    className="shrink-0 bg-transparent"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+
                   <Button variant="outline" size="sm" onClick={copyToClipboard} className="shrink-0 bg-transparent">
                     {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                   </Button>
