@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import { Upload, Clock, Copy, Check, AlertCircle, ExternalLink } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import MaintenanceBanner from "@/components/maintenance-banner"
 
 interface UploadedFile {
   url: string
@@ -142,6 +143,7 @@ export default function ImageUploader() {
   return (
     <div className="space-y-6">
       <Card className="p-6 border-border/50">
+        <MaintenanceBanner />
         <div className="flex items-center gap-3 mb-4">
           <Clock className="h-5 w-5 text-muted-foreground" />
           <h3 className="text-lg font-semibold text-foreground">URL Duration</h3>
