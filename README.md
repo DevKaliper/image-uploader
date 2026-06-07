@@ -81,15 +81,6 @@ Presigned URL (Temporary Access)
 
 This project is licensed under the MIT License. See `LICENSE` for more details.
 
-## 🗺️ Roadmap
-
-- [ ] Multiple images support
-- [ ] Image preview before upload
-- [ ] Automatic resizing
-- [ ] Uploaded images gallery
-- [ ] Manual deletion API
-- [ ] Webhooks for notifications
-
 ---
 
 ⭐ If you liked this project, give it a star!
